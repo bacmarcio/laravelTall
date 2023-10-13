@@ -79,7 +79,7 @@
                     <div v-if="accountAndList"
                         class="bg-white absolute z-50 top-[56px] -ml-[230px] w-[480px] rounded-sm px-6">
                         <div>
-                            <div class="flex items-center justi  fy-between py-2.5 border-b">
+                            <div class="flex items-center justify-between py-2.5 border-b">
                                 <div class="text-smp-2">Whos's shopping? Select a profile</div>
                                 <div
                                     class="flex items-center text-sm font-bold text-teal-600 hover:text-red-600 hover:undeline">
