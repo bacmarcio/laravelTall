@@ -2,17 +2,26 @@
     import {ref} from 'vue';
     import {Link} from '@inertiajs/vue3';
 
-    const showingNavigationDropdown = ref(false);
+    let showMenu = ref(false)
+    let accountAndList = ref(false)
+
+    const accountAndListFunc = (bool) => {
+        setTimeout(() => {
+            accountAndList.value = bool
+        }, 150);
+    }
 </script>
 
 
 <template>
     <div class="min-w-[1150px] bg-gray-100 h-full">
+        <div v-if="accountAndList" class="top-0 z-20 fixed w-full h-full bg-black bg-opacity-70"></div>
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
             <div class="flex">
-                <Link
+                <Link href="#"
                     class="text-white h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
-                GRUPO AVS
+                <img width="40" src="images/logo/logo.png" alt="">
+                <!-- <img width="100" src="images/logo/logo.png" alt=""> -->
                 </Link>
             </div>
             <div
@@ -48,12 +57,12 @@
                 <div
                     class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-center mt-2.5 px-1">
-                        <img src="https://via.placeholder.com/35x20" alt="">
+                        <img class="mb-3 mr-1" width="23" src="/images/flags/US.png" alt="">
                         <div class="text-[15px] text-white -mt-2 mr-0.5 font-extrabold">EN</div>
                         <MenuDown fillColor="#c2c2c2" :size="20" class="-mr-4 -mt-1.5 pr-1" />
                     </div>
                 </div>
-                <div
+                <div @mouseenter="accountAndListFunc(true)" @mouseleave="accountAndListFunc(false)"
                     class="h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-center">
                         <div>
@@ -64,6 +73,34 @@
                             <div class="flex items-center">
                                 <div class="text-[15px] text-white -mt-1.5 font-extrabold">Account & List</div>
                                 <MenuDown fillColor="#c2c2c2" :size="20" class="-mr-4 -mt-1 pr-1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="accountAndList"
+                        class="bg-white absolute z-50 top-[56px] -ml-[230px] w-[480px] rounded-sm px-6">
+                        <div>
+                            <div class="flex items-center justi  fy-between py-2.5 border-b">
+                                <div class="text-smp-2">Whos's shopping? Select a profile</div>
+                                <div
+                                    class="flex items-center text-sm font-bold text-teal-600 hover:text-red-600 hover:undeline">
+                                    Manage Profile
+                                    <ChevronRight :size="20" fillColor="#808080" />
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-1/2 border-r">
+                                    <div class="pb-3">
+                                        <div class="font-extrabold pt-3">Your List</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Create a list</div>
+                                    </div>
+                                </div>
+                                <div class="w-1/2 ml-5">
+                                    <div class="pb-3">
+                                        <div class="font-extrabold pt-3">Your Account</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Account</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Sign Out</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +122,8 @@
                 <div
                     class="relative h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <span class="absolute text-center right=[21px] ml-3.5 w-[14px] -top-0 rounded-full text-[20px]">
-                        <div class="text-orange-400 font-extrabold bg-gray-900 h-[16px]">0</div>
+                        <div class="text-teal-400 font-extrabold bg-gray-900 h-[16px]">0</div>
+                        <!-- text-orange-400 -->
                     </span>
                     <div class="flex items-center justify-center">
                         <CartMinus fillColor="#FCFCFC" :size="40" class="-mt-0.5" />
@@ -95,7 +133,7 @@
         </div>
         <div class="flex items-center justify-between bg-[#232f3e] h-[38px] fixed z-40 min-w-[1150px] w-full mt-[60px]">
             <div class="flex">
-                <div
+                <div @click="showMenu = true"
                     class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <Menu fillColor="#f5f5f5" :size="26" class="mr-0.5" />
@@ -211,6 +249,30 @@
         </footer>
     </div>
 
+    <div v-if="showMenu" class="top-0 z-50 fixed w-full h-full bg-black bg-opacity-70"
+        :class="[showMenu ? 'animate__animated animated__fadeIn animate__faster': '']">
+
+        <Close @click="showMenu = false" :size="30" fillColor="#DCDCDC"
+            class="ml-2.5 mt-3.5 left-80 cursor-pointer fixed z-50"
+            :class="[showMenu ? 'animate__animated animated__fadeIn animate__faster': '']" />
+
+        <div class="w-80 h-full bg-white"
+            :class="[showMenu ? 'animate__animated animated__slideInLeft animate__faster': '']">
+            <div class="bg-[#232f3e] font-extrabold text-[18px] flex items-center p-2 text-white pl-7">
+                <span>Hello, Sign in</span>
+            </div>
+            <div class="font-extrabold text-[16px] pt-3 pb-1 pl-6 pr-3 text-black">
+                Shop by Departament
+            </div>
+            <div class="hover:bg-gray-200 pl6 pr-3">
+                <div
+                    class="py-2 5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                    Hidrometros
+                    <ChevronRight :size="20" fillColor="#808080" />
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -219,6 +281,9 @@
     import Magnify from 'vue-material-design-icons/Magnify.vue';
     import CartMinus from 'vue-material-design-icons/CartMinus.vue';
     import Menu from 'vue-material-design-icons/Menu.vue';
+    import AccountCircle from 'vue-material-design-icons/AccountCircle.vue';
+    import Close from 'vue-material-design-icons/Close.vue';
+    import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 
     export default {
         components: {
@@ -227,6 +292,8 @@
             Magnify,
             CartMinus,
             Menu,
+            AccountCircle,
+            ChevronRight,
         },
     };
 </script>
