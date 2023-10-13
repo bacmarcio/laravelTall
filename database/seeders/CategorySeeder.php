@@ -15,8 +15,8 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert(['name' => "Eletronics"]);
         DB::table('categories')->insert(['name' => "Home"]);
-        DB::table('categories')->insert(['name' => "Men\`s Fashion"]);
-        DB::table('categories')->insert(['name' => "Women\`s Fashion"]);
+        DB::table('categories')->insert(['name' => "Men`s Fashion"]);
+        DB::table('categories')->insert(['name' => "Women`s Fashion"]);
         DB::table('categories')->insert(['name' => "Pets"]);
         DB::table('categories')->insert(['name' => "Arts & Crafts"]);
     }

@@ -184,20 +184,24 @@
             <div class="pt-[98px]"></div>
             <slot />
         </main>
-        <div class="w-full bg-white mt-10">
+        <div class="w-full bg-white mt-10 overflow-x-scroll">
             <div class="max-w-[1500px] mx-auto">
                 <div class="text-[23px] pt-4 font-extrabold">Recomended based on your shopping trends</div>
                 <div class="flex justify-center items-stretch">
-                    <div class="p-4 text-center mx-auto">
-                        <div class="w-[158px] h-[150px] overflow-hidden">
-                            <img src="https://via.placeholder.com/158X150" alt="">
-                        </div>
-                        <div
-                            class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
-                            This is a test title
-                        </div>
-                        <div class="flex justify-start">
-                            <div class="text-xs font-extrabold text-red-600 w-full text-left">$99.99</div>
+                    <div v-for="product in $page.props.random_products" :key="product">
+                        <div class="p-4 text-center mx-auto">
+                            <div class="w-[158px] h-[150px] overflow-hidden">
+                                <img :src="product.image" alt="">
+                            </div>
+                            <div
+                                class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
+                                {{product.title.substring(0,40)}}...
+                            </div>
+                            <div class="flex justify-start">
+                                <div class="text-xs font-extrabold text-red-600 w-full text-left">${{product.price}}
+                                </div>
+                                <img width="50" src="/images/logo/logo.png" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,26 +254,29 @@
     </div>
 
     <div v-if="showMenu" class="top-0 z-50 fixed w-full h-full bg-black bg-opacity-70"
-        :class="[showMenu ? 'animate__animated animated__fadeIn animate__faster': '']">
+        :class="[showMenu ? 'animate__animated animate__fadeIn animate__faster': '']">
 
         <Close @click="showMenu = false" :size="30" fillColor="#DCDCDC"
             class="ml-2.5 mt-3.5 left-80 cursor-pointer fixed z-50"
-            :class="[showMenu ? 'animate__animated animated__fadeIn animate__faster': '']" />
+            :class="[showMenu ? 'animate__animated animate__fadeIn animate__faster': '']" />
 
         <div class="w-80 h-full bg-white"
-            :class="[showMenu ? 'animate__animated animated__slideInLeft animate__faster': '']">
+            :class="[showMenu ? 'animate__animated animate__slideInLeft animate__faster': '']">
             <div class="bg-[#232f3e] font-extrabold text-[18px] flex items-center p-2 text-white pl-7">
                 <span>Hello, Sign in</span>
             </div>
             <div class="font-extrabold text-[16px] pt-3 pb-1 pl-6 pr-3 text-black">
                 Shop by Departament
             </div>
-            <div class="hover:bg-gray-200 pl6 pr-3">
-                <div
-                    class="py-2 5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
-                    Hidrometros
+            <div v-for="cat in $page.props.categories" :key="cat">
+                <div class="hover:bg-gray-200 pl-6 pr-3">
+                    <Link href="/"
+                        class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                    {{cat.name}}
                     <ChevronRight :size="20" fillColor="#808080" />
+                    </Link>
                 </div>
+
             </div>
         </div>
     </div>
