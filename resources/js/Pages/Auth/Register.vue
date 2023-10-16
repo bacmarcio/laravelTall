@@ -7,7 +7,8 @@
     import {Head, Link, useForm} from '@inertiajs/vue3';
 
     const form = useForm({
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: '',
         password_confirmation: '',

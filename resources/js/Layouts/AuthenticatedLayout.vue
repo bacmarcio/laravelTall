@@ -26,6 +26,7 @@
             </div>
             <div
                 class="text-white h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <Link :href="route('address.index')">
                 <div class="flex items-center justify-center">
                     <MapMarkerOutline class="pt-2 -ml-1" fillColor="#f5f5f5" />
                     <div>
@@ -37,6 +38,7 @@
                         </div>
                     </div>
                 </div>
+                </Link>
             </div>
             <div class="flex grow items-center h-[45px] px-1">
                 <div
