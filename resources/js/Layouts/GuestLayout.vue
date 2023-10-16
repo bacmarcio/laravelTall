@@ -10,8 +10,8 @@
             <img class="h-12 fill-current text-gray-500" src="/images/logo/logo.png" alt="">
             </Link>
         </div>
-
-        <div class="w-full max-w-[400px] mt-6 px-6 py-4 bg-white border-gray-300 overflow-hidden rounded-sm">
+        border
+        <div class="w-full max-w-[400px] mt-6 px-6 py-4 bg-white border border-gray-300 overflow-hidden rounded-sm">
             <slot />
         </div>
         <div v-if="$page.url === '/login'" class="w-[400px]">
