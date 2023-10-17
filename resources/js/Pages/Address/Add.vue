@@ -2,10 +2,24 @@
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import TextInput from '@/Components/TextInput.vue';
-    import {Head, Link} from '@inertiajs/vue3';
+    import {Head, Link, useForm, usePage} from '@inertiajs/vue3';
     import {toRefs} from 'vue';
 
+    const form = useForm({
+        country: 'United Kingdom',
+        first_name: usePage().props.auth.user.first_name,
+        last_name: usePage().props.auth.user.last_name,
+        addr1: '',
+        addr2: '',
+        city: '',
+        postcode: '',
+    })
 
+    const submit = () => {
+        form.post(route('address_options.store'), {
+            onFinish: () => route('adress.index'),
+        })
+    }
 
 </script>
 
@@ -20,9 +34,9 @@
         <div class="w-[500px] mx-auto text-2xl font-extrabold">
             <div>Add a new address</div>
         </div>
-        <form>
+        <form @submit.prevent="submit">
             <div class="text-[15px] mx-auto text-2xl font-extrabold">Country</div>
-            <select name="country"
+            <select name="country" v-model="form.country"
                 class="w-full border-gray-300 rounded-lg shadow-md py-1 bg-gray-200 hover:bg-gray-300 cursor-pointer focus:border-orange-400 focus:ring-orange-400">
                 <option selected value="United Kingdom">United Kingdom</option>
                 <option value="United States">United States</option>
@@ -31,29 +45,33 @@
             </select>
             <div class="mt-4">
                 <InputLabel class="-mb-1.5" value="First name" />
-                <TextInput type="text" class="mt-1 block w-full" required />
+                <TextInput v-model="form.first_name" type="text" class="mt-1 block w-full" required />
             </div>
             <div class="mt-3">
                 <InputLabel class="-mb-1.5" value="Last name" />
-                <TextInput type="text" class="mt-1 block w-full" required />
+                <TextInput v-model="form.last_name" type="text" class="mt-1 block w-full" required />
             </div>
 
             <div class="mt-3">
                 <InputLabel class="-mb-1.5" value="Address" />
-                <TextInput type="text" class="mt-1 block w-full" required placeholder="Address line 1" />
+                <TextInput v-model="form.addr1" type="text" class="mt-1 block w-full" required
+                    placeholder="Address line 1" />
 
-                <TextInput type="text" class="mt-1 block w-full" required placeholder="Address line 2" />
+                <TextInput v-model="form.addr2" type="text" class="mt-1 block w-full" required
+                    placeholder="Address line 2" />
             </div>
 
             <div class="mt-3">
                 <div class="flex gap-2">
                     <div class="w-full">
                         <InputLabel class="-mb-1.5" value="City" />
-                        <TextInput type="text" class="mt-1 block w-full" required placeholder="City" />
+                        <TextInput v-model="form.city" type="text" class="mt-1 block w-full" required
+                            placeholder="City" />
                     </div>
                     <div class="w-full">
                         <InputLabel class="-mb-1.5" value="Postcode" />
-                        <TextInput type="text" class="mt-1 block w-full" required placeholder="Postcode" />
+                        <TextInput v-model="form.postcode" type="text" class="mt-1 block w-full" required
+                            placeholder="Postcode" />
                     </div>
                 </div>
                 <div class="mt-6">

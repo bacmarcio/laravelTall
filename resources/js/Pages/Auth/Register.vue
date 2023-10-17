@@ -28,12 +28,21 @@
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="First Name" />
 
-                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
-                    autocomplete="name" />
+                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.first_name" required autofocus
+                    autocomplete="first_name" />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.first_name" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="name" value="Last Name" />
+
+                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.last_name" required
+                    autocomplete="last_name" />
+
+                <InputError class="mt-2" :message="form.errors.last_name" />
             </div>
 
             <div class="mt-4">
