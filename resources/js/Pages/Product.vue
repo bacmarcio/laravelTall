@@ -31,16 +31,17 @@
                 <div class="border border-gray-300 rounded-lg">
                     <div class="my-2 mx-3 mb-2">
                         <div class="flex items-center justify-center border-b border-gray-300 pb-1">
-                            <Link href="/"
+                            <Link v-if="$page.props.auth.user" :href="route('address.index')"
                                 class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
-                            <MapMarkerOutline :size="17" /> Delivery to FIRSTNAME - POST-CODE
+                            <MapMarkerOutline :size="17" /> Delivery to {{$page.props.auth.user.first_name}} -
+                            {{$page.props.auth.address.postcode}}
                             </Link>
-                            <Link :href="route('login')"
+                            <Link v-else :href="route('login')"
                                 class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
                             SIGN IN
                             </Link>
                         </div>
-                        <div class="flex items-center justify-center pt-2">
+                        <div class="flex items-center justify-between pt-2">
                             <div class="text-red-600 text-sm font-bold">${{product.price}}</div>
                             <buttom
                                 class="bg-yellow-400 px-2 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
