@@ -2,10 +2,22 @@
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import {Head, Link} from '@inertiajs/vue3';
     import {toRefs} from 'vue';
-
+    import {useCartStore} from '@/store/cart';
+    import {storeToRefs} from 'pinia';
 
     const props = defineProps({product: Object});
     const {product} = toRefs(props);
+    const cartStore = useCartStore();
+    const {cart} = storeToRefs(cartStore);
+
+    const addToCart = (product) => {
+        cart.value.push(product)
+    }
+    const isAlreadyInCart = computed(() => {
+        let res = cart.value.find(c => c.id === product.value.id)
+        if (res) return true
+        return false
+    })
 </script>
 
 <template>
