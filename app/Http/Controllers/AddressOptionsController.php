@@ -17,7 +17,6 @@ class AddressOptionsController extends Controller
         return Inertia::render('Address/Add');
     }
 
-   
 
     /**
      * Store a newly created resource in storage.
