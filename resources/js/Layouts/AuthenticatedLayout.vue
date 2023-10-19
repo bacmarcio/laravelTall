@@ -2,6 +2,9 @@
     import {ref} from 'vue';
     import {Link} from '@inertiajs/vue3';
 
+    import {useCartStore} from '@/store/cart';
+    const cartStore = useCartStore()
+
     let showMenu = ref(false)
     let accountAndList = ref(false)
 
@@ -10,6 +13,7 @@
             accountAndList.value = bool
         }, 150);
     }
+
 </script>
 
 
@@ -19,7 +23,7 @@
         <div v-if="accountAndList" class="top-0 z-20 fixed w-full h-full bg-black bg-opacity-70"></div>
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
             <div class="flex">
-                <Link href="#"
+                <Link :href="route('dashboard')"
                     class="text-white h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                 <img width="40" src="images/logo/logo.png" alt="">
                 <!-- <img width="100" src="images/logo/logo.png" alt=""> -->
@@ -81,7 +85,8 @@
                     class="h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-center">
                         <div>
-                            <div class="text-[12px] text-white font-extrabold">
+
+                            <div v-if="$page.props.auth.user" class="text-[12px] text-white font-extrabold">
                                 Hello,
                                 <span v-if="$page.props.auth.user">{{$page.props.auth.user.first_name}}</span>
                                 <span v-else>sign in</span>
@@ -150,16 +155,16 @@
                     </div>
                 </div>
 
-                <div
+                <Link :href="route('cart.index')"
                     class="relative h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
-                    <span class="absolute text-center right=[21px] ml-3.5 w-[14px] -top-0 rounded-full text-[20px]">
-                        <div class="text-teal-400 font-extrabold bg-gray-900 h-[16px]">0</div>
-                        <!-- text-orange-400 -->
-                    </span>
-                    <div class="flex items-center justify-center">
-                        <CartMinus fillColor="#FCFCFC" :size="40" class="-mt-0.5" />
-                    </div>
+                <span class="absolute text-center right=[21px] ml-3.5 w-[14px] -top-0 rounded-full text-[20px]">
+                    <div class="text-teal-400 font-extrabold bg-gray-900 h-[16px]">{{cartStore.cart.length}}</div>
+                    <!-- text-orange-400 -->
+                </span>
+                <div class="flex items-center justify-center">
+                    <CartMinus fillColor="#FCFCFC" :size="40" class="-mt-0.5" />
                 </div>
+                </Link>
             </div>
         </div>
         <div class="flex items-center justify-between bg-[#232f3e] h-[38px] fixed z-40 min-w-[1150px] w-full mt-[60px]">

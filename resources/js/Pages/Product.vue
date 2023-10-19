@@ -1,18 +1,21 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import {Head, Link} from '@inertiajs/vue3';
-    import {toRefs} from 'vue';
-    import {useCartStore} from '@/store/cart';
+    import {toRefs, computed} from 'vue'
+
+    import {useCartStore} from '@/store/cart'
     import {storeToRefs} from 'pinia';
+    const cartStore = useCartStore()
+    const {cart} = storeToRefs(cartStore)
 
     const props = defineProps({product: Object});
-    const {product} = toRefs(props);
-    const cartStore = useCartStore();
-    const {cart} = storeToRefs(cartStore);
+    const {product} = toRefs(props)
+
 
     const addToCart = (product) => {
         cart.value.push(product)
     }
+
     const isAlreadyInCart = computed(() => {
         let res = cart.value.find(c => c.id === product.value.id)
         if (res) return true
@@ -55,10 +58,10 @@
                         </div>
                         <div class="flex items-center justify-between pt-2">
                             <div class="text-red-600 text-sm font-bold">${{product.price}}</div>
-                            <buttom
+                            <buttom :disabled="isAlreadyInCart" @click="addToCart(product)"
                                 class="bg-yellow-400 px-2 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
-                                <!-- <span>Item added</span> -->
-                                <span>Add to cart</span>
+                                <span v-if="isAlreadyInCart">Item added</span>
+                                <span v-else>Add to cart</span>
                             </buttom>
                         </div>
                     </div>
